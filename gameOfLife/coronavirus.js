@@ -1,4 +1,5 @@
-class Coronavirus extends LivingCreature{
+let LivingCreature = require('./LivingCreature')
+module.exports = class Coronavirus extends LivingCreature{
     constructor(x, y) {
         super(x,y)
         this.energy = 5;
@@ -29,8 +30,8 @@ class Coronavirus extends LivingCreature{
         var emptyCell = this.chooseCell(0);
         var newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)]
 
-        console.log(emptyCells);
-        if (newCell && this.multiply >= 15) {
+        console.log(emptyCell);
+        if (newCell && this.multiply >= 14) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = 5;

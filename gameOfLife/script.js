@@ -1,127 +1,132 @@
-function matrixGenerator(matrixSize, peopleCount, virusCount, antivirusCount, omnivorousCount, coronavirusCount) {
-    let matrix = [];
+// function matrixGenerator(matrixSize, peopleCount, virusCount, antivirusCount, omnivorousCount, coronavirusCount) {
+//     let matrix = [];
 
-    for (let i = 0; i < matrixSize; i++) {
-        matrix[i] = []
-        for (let j = 0; j < matrixSize; j++) {
-            matrix[i][j] = 0;
-        }
-    }
+const socket = io()
 
-    for (let i = 0; i < peopleCount; i++) {
+//     for (let i = 0; i < matrixSize; i++) {
+//         matrix[i] = []
+//         for (let j = 0; j < matrixSize; j++) {
+//             matrix[i][j] = 0;
+//         }
+//     }
 
-        let x = Math.floor(Math.random() * matrixSize)
-        let y = Math.floor(Math.random() * matrixSize)
+//     for (let i = 0; i < peopleCount; i++) {
 
-        if (matrix[y][x] == 0) {
-            matrix[y][x] = 1;
-        }
+//         let x = Math.floor(Math.random() * matrixSize)
+//         let y = Math.floor(Math.random() * matrixSize)
 
-    }
+//         if (matrix[y][x] == 0) {
+//             matrix[y][x] = 1;
+//         }
 
-    for (let i = 0; i < virusCount; i++) {
+//     }
 
-        let x = Math.floor(Math.random() * matrixSize)
-        let y = Math.floor(Math.random() * matrixSize)
+//     for (let i = 0; i < virusCount; i++) {
 
-        if (matrix[y][x] == 0) {
-            matrix[y][x] = 2;
-        }
+//         let x = Math.floor(Math.random() * matrixSize)
+//         let y = Math.floor(Math.random() * matrixSize)
 
-    }
-    for (let i = 0; i < antivirusCount; i++) {
+//         if (matrix[y][x] == 0) {
+//             matrix[y][x] = 2;
+//         }
 
-        let x = Math.floor(Math.random() * matrixSize)
-        let y = Math.floor(Math.random() * matrixSize)
+//     }
+//     for (let i = 0; i < antivirusCount; i++) {
 
-        if (matrix[y][x] == 0) {
-            matrix[y][x] = 3;
-        }
+//         let x = Math.floor(Math.random() * matrixSize)
+//         let y = Math.floor(Math.random() * matrixSize)
 
-    }
+//         if (matrix[y][x] == 0) {
+//             matrix[y][x] = 3;
+//         }
 
-    for (let i = 0; i < omnivorousCount; i++) {
+//     }
 
-        let x = Math.floor(Math.random() * matrixSize)
-        let y = Math.floor(Math.random() * matrixSize)
+//     for (let i = 0; i < omnivorousCount; i++) {
 
-        if (matrix[y][x] == 0) {
-            matrix[y][x] = 4;
-        }
+//         let x = Math.floor(Math.random() * matrixSize)
+//         let y = Math.floor(Math.random() * matrixSize)
 
-    }
+//         if (matrix[y][x] == 0) {
+//             matrix[y][x] = 4;
+//         }
 
-
-    for (let i = 0; i < coronavirusCount; i++) {
-
-        let x = Math.floor(Math.random() * matrixSize)
-        let y = Math.floor(Math.random() * matrixSize)
-
-        if (matrix[y][x] == 0) {
-            matrix[y][x] = 5;
-        }
+//     }
 
 
-    }
+//     for (let i = 0; i < coronavirusCount; i++) {
+
+//         let x = Math.floor(Math.random() * matrixSize)
+//         let y = Math.floor(Math.random() * matrixSize)
+
+//         if (matrix[y][x] == 0) {
+//             matrix[y][x] = 5;
+//         }
 
 
-
-    return matrix;
-}
+//     }
 
 
 
-let matrix = matrixGenerator(20, 15, 20, 25, 10, 15);
-console.log(matrix);
+//     return matrix;
+// }
+
+
+
+// let matrix = matrixGenerator(20, 15, 20, 25, 10, 15);
+
+
 
 var side = 35;
 
-var peopleArr = []
-var virusArr = []
-var antivirusArr = []
-var omnivorousArr = []
-var coronavirusArr = []
+// var peopleArr = []
+// var virusArr = []
+// var antivirusArr = []
+// var omnivorousArr = []
+// var coronavirusArr = []
 
 function setup() {
     frameRate(10)
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(30 * side, 30 * side);
 
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                var people = new People(x, y)
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+//             if (matrix[y][x] == 1) {
+//                 var people = new People(x, y)
 
-                peopleArr.push(people)
-            } else if (matrix[y][x] == 2) {
-                var virus = new Virus(x, y)
+//                 peopleArr.push(people)
+//             } else if (matrix[y][x] == 2) {
+//                 var virus = new Virus(x, y)
 
-                virusArr.push(virus)
-            } else if (matrix[y][x] == 3) {
-                var antivirus = new Antivirus(x, y)
+//                 virusArr.push(virus)
+//             } else if (matrix[y][x] == 3) {
+//                 var antivirus = new Antivirus(x, y)
 
-                antivirusArr.push(antivirus)
-            }
+//                 antivirusArr.push(antivirus)
+//             }
 
-            else if (matrix[y][x] == 4) {
-                var omnivorous = new Omnivorous(x, y)
+//             else if (matrix[y][x] == 4) {
+//                 var omnivorous = new Omnivorous(x, y)
 
-                omnivorousArr.push(omnivorous)
-            }
+//                 omnivorousArr.push(omnivorous)
+//             }
 
-            else if (matrix[y][x] == 5) {
-                var coronavirus = new Coronavirus(x, y)
+//             else if (matrix[y][x] == 5) {
+//                 var coronavirus = new Coronavirus(x, y)
 
-                coronavirusArr.push(coronavirus)
-            }
-        }
-    }
+//                 coronavirusArr.push(coronavirus)
+//             }
+//         }
+//     }
 
 
 
 }
 
 
-function draw() {
+
+
+function updatecolor(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -133,7 +138,9 @@ function draw() {
             } else if (matrix[y][x] == 4) {
                 fill("blue")
             } else if (matrix[y][x] == 5) {
-                fill("black")
+                fill("pink")
+            }   else if (matrix[y][x] == 6) {
+                    fill("black")
             } else {
                 fill("gray")
             }
@@ -141,27 +148,8 @@ function draw() {
         }
     }
 
-    for (var i in peopleArr) {
-        peopleArr[i].mul()
-    }
-
-    for (let j in virusArr) {
-        virusArr[j].mul()
-        virusArr[j].eat()
-    }
-
-    for (let j in antivirusArr) {
-        antivirusArr[j].mul()
-        antivirusArr[j].eat()
-    }
-
-    for (let j in omnivorousArr) {
-        omnivorousArr[j].mul()
-        omnivorousArr[j].eat()
-    }
-
-    for (let j in coronavirusArr) {
-        coronavirusArr[j].mul()
-        coronavirusArr[j].eat()
-    }
+    
 }
+
+
+socket.on("send matrix",updatecolor)

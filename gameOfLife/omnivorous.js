@@ -1,4 +1,5 @@
-class Omnivorous extends LivingCreature {
+let LivingCreature = require('./LivingCreature')
+module.exports = class Omnivorous extends LivingCreature {
     constructor(x, y) {
         super(x, y)
         this.energy = 10;
@@ -28,8 +29,8 @@ class Omnivorous extends LivingCreature {
         this.multiply++;
         var emptyCell = this.chooseCell(0);
         var newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)]
-        console.log(emptyCells);
-        if (newCell && this.multiply >= 15) {
+        console.log(emptyCell);
+        if (newCell && this.multiply >= 13) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = 4;
