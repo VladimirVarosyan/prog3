@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+var fs = require("fs")
 
 app.use(express.static("."));
 app.get('/', function (req, res) {
@@ -107,13 +108,13 @@ omnivorousArr = []
 coronavirusArr = []
 atomicbombArr = []
 
-
-const People = require("./people")
-const Virus = require("./virus")
-const Antivirus = require("./antivirus")
-const Omnivorous = require("./omnivorous")
-const Coronavirus = require("./coronavirus");
-const Atomicbomb = require('./atomicbomb');
+weath = "winter"
+People = require("./people")
+Virus = require("./virus")
+Antivirus = require("./antivirus")
+Omnivorous = require("./omnivorous")
+Coronavirus = require("./coronavirus");
+Atomicbomb = require('./atomicbomb');
 
 
 function createObj() {
@@ -191,7 +192,123 @@ function gameMove() {
     io.emit("send matrix", matrix)
 
 }
-gameMove()
 
 
 setInterval(gameMove,666)
+
+
+function kill() {
+    PeopleArr = [];
+    VirusArr = [];
+    AntivirusArr = [];
+    OumnivorousArr = [];
+    CoronavirusArr = [];
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+}
+
+
+function addPeople() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 1
+            var people = new People(x, y, 1)
+            PeopleArr.push(people)
+        }
+    }
+}
+function addVirus() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 2
+            VirusArr.push(new Virus(x, y, 2))
+        }
+    }
+}
+
+
+function addAntivirus() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 3
+            AntivirusArr.push(new Antivirus(x, y, 3))
+        }
+    }
+}
+function addOmnivorous() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 4
+            OumnivorousArr.push(new Oumnivorous(x, y, 4))
+        }
+    }
+}
+function addCoronavirus() {
+    for (var i = 0; i < 7; i++) {
+        var x = Math.floor(Math.random() * matrix[0].length)
+        var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 5
+            CoronavirusArr.push(new Coronavirus(x, y, 5))
+        }
+    }
+}
+
+
+
+function weather() {
+    if (weath == "winter") {
+        weath = "spring"
+    }
+    else if (weath == "spring") {
+        weath = "summer"
+    }
+    else if (weath == "summer") {
+        weath = "autumn"
+    }
+    else if (weath == "autumn") {
+        weath = "winter"
+    }
+    io.sockets.emit('weather', weath)
+}
+setInterval(weather, 5000);
+
+
+////
+
+io.on('connection', function (socket) {
+    createObj();
+    socket.on("kill", kill);
+    socket.on("add people", addPeople);
+    socket.on("add virus", addVirus);
+    socket.on("add antivirus", addAntivirus);
+    socket.on("add omnivorous", addOmnivorous);
+    socket.on("add coronavirus", addCoronavirus);
+
+});
+
+
+var statistics = {};
+
+setInterval(function () {
+    statistics.people = peopleArr.length;
+    statistics.virus = virusArr.length;
+    statistics.antivirus = antivirusArr.length;
+    statistics.omnivorous = omnivorousArr.length;
+    statistics.coronavirus = coronavirusArr.length;
+
+    fs.writeFile("statistics.json", JSON.stringify(statistics), function () {
+        io.emit("data", statistics);
+    })
+}, 666)

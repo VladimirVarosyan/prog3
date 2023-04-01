@@ -29,7 +29,7 @@ module.exports = class Omnivorous extends LivingCreature {
         this.multiply++;
         var emptyCell = this.chooseCell(0);
         var newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)]
-        console.log(emptyCell);
+        
         if (newCell && this.multiply >= 13) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -46,7 +46,7 @@ module.exports = class Omnivorous extends LivingCreature {
         var emptyCell = this.chooseCell(0)
         var newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)]
         if (newCell && this.energy >= 0) {
-            console.log(newCell)
+            
             var newX = newCell[0]
             var newY = newCell[1]
             matrix[newY][newX] = matrix[this.y][this.x]
